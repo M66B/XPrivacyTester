@@ -3,6 +3,8 @@ package biz.bokhorst.xprivacytester;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -18,5 +20,13 @@ public class MainActivity extends Activity {
 				.toString(accountManager.getAccounts().length));
 		((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
 				.toString(ContentResolver.getCurrentSyncs().size()));
+
+		Intent call = new Intent(Intent.ACTION_CALL);
+		call.setData(Uri.parse("tel:911"));
+		startActivity(call);
+
+		Intent dial = new Intent(Intent.ACTION_DIAL);
+		dial.setData(Uri.parse("tel:911"));
+		startActivity(dial);
 	}
 }
