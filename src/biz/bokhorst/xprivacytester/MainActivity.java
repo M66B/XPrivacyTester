@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -28,5 +29,14 @@ public class MainActivity extends Activity {
 		Intent dial = new Intent(Intent.ACTION_DIAL);
 		dial.setData(Uri.parse("tel:911"));
 		startActivity(dial);
+
+		Intent image = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivity(image);
+
+		Intent simage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE);
+		startActivity(simage);
+
+		Intent video = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+		startActivity(video);
 	}
 }
