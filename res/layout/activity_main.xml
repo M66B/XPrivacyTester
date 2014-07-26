@@ -1,0 +1,31 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TableRow>
+
+        <TextView
+            android:text="getAccounts"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/getAccounts"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="getCurrentSyncs"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/getCurrentSyncs"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+</TableLayout>
