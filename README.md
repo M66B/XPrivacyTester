@@ -1,0 +1,4 @@
+XPrivacyTester
+==============
+
+XPrivacy test application
