@@ -38,5 +38,9 @@ public class MainActivity extends Activity {
 
 		Intent video = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		startActivity(video);
+
+		Intent view = new Intent(Intent.ACTION_VIEW);
+		view.setData(Uri.parse("http://www.faircode.eu/"));
+		startActivity(view);
 	}
 }
