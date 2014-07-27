@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -35,5 +38,15 @@ public class MainActivity extends Activity {
 		((TextView) findViewById(R.id.queryIntentActivities))
 				.setText(Integer.toString(packageManager.queryIntentActivities(
 						view, 0).size()));
+
+		Cursor cursor = getContentResolver().query(
+				ContactsContract.Contacts.CONTENT_URI,
+				new String[] { ContactsContract.Contacts._ID }, null, null,
+				Phone.DISPLAY_NAME);
+		((TextView) findViewById(R.id.ContactsProvider2))
+				.setText(cursor == null ? "null" : Integer.toString(cursor
+						.getCount()));
+		if (cursor != null)
+			cursor.close();
 	}
 }

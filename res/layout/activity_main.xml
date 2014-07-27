@@ -64,4 +64,16 @@
             android:layout_marginLeft="6dip" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:text="ContactsProvider2"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/ContactsProvider2"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
 </TableLayout>
