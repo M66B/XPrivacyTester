@@ -79,6 +79,18 @@
     <TableRow>
 
         <TextView
+            android:text="CallLogProvider"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/CallLogProvider"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
             android:text="ContactsProvider2"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />

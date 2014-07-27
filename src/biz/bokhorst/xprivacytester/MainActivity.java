@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
+import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ public class MainActivity extends Activity {
 		view.setData(Uri.parse("http://www.faircode.eu/"));
 		startActivity(view);
 
-		// Acount manager methods
+		// Account manager methods
 		AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
 		((TextView) findViewById(R.id.getAccounts)).setText(Integer
 				.toString(accountManager.getAccounts().length));
@@ -49,6 +50,16 @@ public class MainActivity extends Activity {
 		cursor = cr.query(Calendars.CONTENT_URI,
 				new String[] { Calendars._ID }, null, null, null);
 		((TextView) findViewById(R.id.CalendarProvider2))
+				.setText(cursor == null ? "null" : Integer.toString(cursor
+						.getCount()));
+		if (cursor != null)
+			cursor.close();
+
+		// Callog provider
+		cursor = this.getContentResolver().query(
+				android.provider.CallLog.Calls.CONTENT_URI,
+				new String[] { CallLog.Calls._ID }, null, null, null);
+		((TextView) findViewById(R.id.CallLogProvider))
 				.setText(cursor == null ? "null" : Integer.toString(cursor
 						.getCount()));
 		if (cursor != null)
