@@ -74,5 +74,13 @@ public class MainActivity extends Activity {
 						.getCount()));
 		if (cursor != null)
 			cursor.close();
+
+		// SMS provider
+		cursor = cr.query(Uri.parse("content://sms/"), null, null, null, null);
+		((TextView) findViewById(R.id.SmsProvider))
+				.setText(cursor == null ? "null" : Integer.toString(cursor
+						.getCount()));
+		if (cursor != null)
+			cursor.close();
 	}
 }

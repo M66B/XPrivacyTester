@@ -100,4 +100,16 @@
             android:layout_marginLeft="6dip" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:text="SmsProvider"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/SmsProvider"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
 </TableLayout>
