@@ -235,6 +235,18 @@
                 android:id="@+id/Downloads"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="UserDictionary"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/UserDictionary"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>

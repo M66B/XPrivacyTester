@@ -19,6 +19,7 @@ import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.Telephony;
+import android.provider.UserDictionary;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
@@ -243,8 +244,21 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
+		// User dictionary
+		try {
+			cursor = cr.query(UserDictionary.Words.CONTENT_URI, null, null,
+					null, null);
+			((TextView) findViewById(R.id.UserDictionary))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
 		// TODO: SIP
-		// TODO: UserDictionary
 		// TODO: EMailProvider/GMailProvider
 		// TODO: SystemProperties
 		// TODO: IoBridge
