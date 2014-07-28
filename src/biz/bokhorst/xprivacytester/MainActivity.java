@@ -229,7 +229,20 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
-		// TODO: Downloads
+		// Downloads provider
+		try {
+			cursor = cr.query(Uri.parse("content://downloads/my_downloads"),
+					null, null, null, null);
+			((TextView) findViewById(R.id.Downloads))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
 		// TODO: SIP
 		// TODO: UserDictionary
 		// TODO: EMailProvider/GMailProvider

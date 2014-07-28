@@ -223,6 +223,18 @@
                 android:id="@+id/InputDevice"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Downloads"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/Downloads"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>
