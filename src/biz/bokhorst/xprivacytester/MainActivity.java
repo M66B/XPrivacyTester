@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import com.google.android.gm.contentprovider.GmailContract;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -139,7 +140,7 @@ public class MainActivity extends Activity {
 					.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -151,7 +152,7 @@ public class MainActivity extends Activity {
 			@SuppressWarnings("unchecked")
 			List<SmsMessage> msgs = (List<SmsMessage>) getMessages.invoke(smsManager);
 			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(Integer.toString(msgs.size()));
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -215,7 +216,7 @@ public class MainActivity extends Activity {
 					.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -227,7 +228,7 @@ public class MainActivity extends Activity {
 					.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -261,7 +262,7 @@ public class MainActivity extends Activity {
 							}
 						}
 					}, null);
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -276,7 +277,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.GservicesProvider)).setText(gsf_id == null ? "null" : gsf_id);
 			if (cursor != null)
 				cursor.close();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
@@ -284,10 +285,33 @@ public class MainActivity extends Activity {
 		// SERIAL
 		((TextView) findViewById(R.id.SERIAL)).setText(Build.SERIAL);
 
+		// AdvertisingId
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					final String adId = AdvertisingIdClient.getAdvertisingIdInfo(MainActivity.this).getId();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							((TextView) findViewById(R.id.AdvertisingId)).setText(adId == null ? "null" : adId);
+						}
+					});
+				} catch (final Throwable ex) {
+					ex.printStackTrace();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(MainActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
+						}
+					});
+				}
+			}
+		}.start();
+
 		// TODO: SIP
 		// TODO: SystemProperties
 		// TODO: IoBridge
-		// TODO: AdvertisingId
 	}
 
 	@Override

@@ -283,6 +283,18 @@
                 android:id="@+id/SERIAL"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="AdvertisingId"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/AdvertisingId"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>
