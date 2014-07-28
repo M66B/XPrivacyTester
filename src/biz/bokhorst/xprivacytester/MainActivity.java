@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
@@ -50,6 +51,19 @@ public class MainActivity extends Activity {
 
 		Cursor cursor;
 		ContentResolver cr = getContentResolver();
+
+		// Browser provider
+		String[] proj = new String[] { Browser.BookmarkColumns.TITLE,
+				Browser.BookmarkColumns.URL };
+		String sel = Browser.BookmarkColumns.BOOKMARK + " = 0";
+		// 0 = history, 1 = bookmark
+		cursor = getContentResolver().query(Browser.BOOKMARKS_URI, proj, sel,
+				null, null);
+		((TextView) findViewById(R.id.BrowserProvider2))
+				.setText(cursor == null ? "null" : Integer.toString(cursor
+						.getCount()));
+		if (cursor != null)
+			cursor.close();
 
 		// Calendar provider
 		cursor = cr.query(Calendars.CONTENT_URI,

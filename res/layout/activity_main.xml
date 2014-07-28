@@ -67,6 +67,18 @@
     <TableRow>
 
         <TextView
+            android:text="BrowserProvider2"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/BrowserProvider2"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
             android:text="CalendarProvider2"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
