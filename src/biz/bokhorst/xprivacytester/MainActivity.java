@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	@Override
+	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -160,6 +162,21 @@ public class MainActivity extends Activity {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
+
+		// Read clipboard
+		ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		ClipboardManager.OnPrimaryClipChangedListener clipListener = new ClipboardManager.OnPrimaryClipChangedListener() {
+			@Override
+			public void onPrimaryClipChanged() {
+			}
+		};
+		clipboard.addPrimaryClipChangedListener(clipListener);
+		clipboard.getPrimaryClip();
+		clipboard.getPrimaryClipDescription();
+		clipboard.getText();
+		clipboard.hasPrimaryClip();
+		clipboard.hasText();
+		clipboard.removePrimaryClipChangedListener(clipListener);
 	}
 
 	@Override
