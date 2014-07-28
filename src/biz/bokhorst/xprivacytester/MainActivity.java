@@ -228,6 +228,16 @@ public class MainActivity extends Activity {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
+
+		// TODO: Downloads
+		// TODO: SIP
+		// TODO: UserDictionary
+		// TODO: EMailProvider/GMailProvider
+		// TODO: SystemProperties
+		// TODO: IoBridge
+		// TODO: AdvertisingId
+		// TODO: GservicesProvider
+		// TODO: SERIAL
 	}
 
 	@Override

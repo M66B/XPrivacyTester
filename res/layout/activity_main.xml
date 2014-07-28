@@ -1,223 +1,228 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <TableRow>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:text="getAccounts"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getAccounts"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getAccounts"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getAccounts"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getAccountsByType"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getAccountsByType"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getAccountsByType"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getAccountsByType"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="addOnAccountsUpdatedListener"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/addOnAccountsUpdatedListener"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="addOnAccountsUpdatedListener"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/addOnAccountsUpdatedListener"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getCurrentSyncs"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getCurrentSyncs"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getCurrentSyncs"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getCurrentSyncs"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getInstalledApplications"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getInstalledApplications"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getInstalledApplications"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getInstalledApplications"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getInstalledPackages"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getInstalledPackages"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getInstalledPackages"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getInstalledPackages"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="queryIntentActivities"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/queryIntentActivities"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="queryIntentActivities"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/queryIntentActivities"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="BrowserProvider2"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/BrowserProvider2"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="BrowserProvider2"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/BrowserProvider2"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="CalendarProvider2"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/CalendarProvider2"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="CalendarProvider2"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/CalendarProvider2"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="CallLogProvider"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/CallLogProvider"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="CallLogProvider"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/CallLogProvider"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="ContactsProvider2"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/ContactsProvider2"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="ContactsProvider2"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/ContactsProvider2"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="SmsProvider"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/SmsProvider"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="SmsProvider"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/SmsProvider"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getAllMessagesFromIcc"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getAllMessagesFromIcc"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getAllMessagesFromIcc"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getAllMessagesFromIcc"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="getLine1Number"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/getLine1Number"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="getLine1Number"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/getLine1Number"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="Settings.Secure.ANDROID_ID"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/Settings_Secure_ANDROID_ID"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="Settings.Secure.ANDROID_ID"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/Settings_Secure_ANDROID_ID"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="default_dns_server"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/default_dns_server"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="default_dns_server"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/default_dns_server"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="wifi_country_code"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/wifi_country_code"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="wifi_country_code"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TableRow>
+            <TextView
+                android:id="@+id/wifi_country_code"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
 
-        <TextView
-            android:text="InputDevice (first)"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+        <TableRow>
 
-        <TextView
-            android:id="@+id/InputDevice"
-            android:layout_marginLeft="6dip" />
-    </TableRow>
+            <TextView
+                android:text="InputDevice (first)"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-</TableLayout>
+            <TextView
+                android:id="@+id/InputDevice"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>
