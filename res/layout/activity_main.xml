@@ -172,4 +172,16 @@
             android:layout_marginLeft="6dip" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:text="Settings.Secure.ANDROID_ID"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/Settings_Secure_ANDROID_ID"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
 </TableLayout>

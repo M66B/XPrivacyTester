@@ -182,19 +182,35 @@ public class MainActivity extends Activity {
 		}
 
 		// Read clipboard
-		ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-		ClipboardManager.OnPrimaryClipChangedListener clipListener = new ClipboardManager.OnPrimaryClipChangedListener() {
-			@Override
-			public void onPrimaryClipChanged() {
-			}
-		};
-		clipboard.addPrimaryClipChangedListener(clipListener);
-		clipboard.getPrimaryClip();
-		clipboard.getPrimaryClipDescription();
-		clipboard.getText();
-		clipboard.hasPrimaryClip();
-		clipboard.hasText();
-		clipboard.removePrimaryClipChangedListener(clipListener);
+		try {
+			ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			ClipboardManager.OnPrimaryClipChangedListener clipListener = new ClipboardManager.OnPrimaryClipChangedListener() {
+				@Override
+				public void onPrimaryClipChanged() {
+				}
+			};
+			clipboard.addPrimaryClipChangedListener(clipListener);
+			clipboard.getPrimaryClip();
+			clipboard.getPrimaryClipDescription();
+			clipboard.getText();
+			clipboard.hasPrimaryClip();
+			clipboard.hasText();
+			clipboard.removePrimaryClipChangedListener(clipListener);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// Android ID
+		try {
+			String androidDeviceId = android.provider.Settings.Secure
+					.getString(cr, android.provider.Settings.Secure.ANDROID_ID);
+			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID))
+					.setText(androidDeviceId == null ? "null" : androidDeviceId);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override
