@@ -15,28 +15,20 @@ import android.provider.Browser;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
-import android.provider.Telephony.Sms;
+import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// View action
-		Intent view = new Intent(Intent.ACTION_VIEW);
-		view.setData(Uri.parse("http://www.faircode.eu/"));
-		try {
-			startActivity(view);
-		} catch (Throwable ignored) {
-		}
 
 		// Account manager methods
 		try {
@@ -45,7 +37,9 @@ public class MainActivity extends Activity {
 					.toString(accountManager.getAccounts().length));
 			((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
 					.toString(ContentResolver.getCurrentSyncs().size()));
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		// Package manager methods
@@ -57,10 +51,14 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.getInstalledPackages))
 					.setText(Integer.toString(packageManager
 							.getInstalledPackages(0).size()));
+			Intent view = new Intent(Intent.ACTION_VIEW);
+			view.setData(Uri.parse("http://www.faircode.eu/"));
 			((TextView) findViewById(R.id.queryIntentActivities))
 					.setText(Integer.toString(packageManager
 							.queryIntentActivities(view, 0).size()));
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		Cursor cursor;
@@ -79,7 +77,9 @@ public class MainActivity extends Activity {
 							.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		// Calendar provider
@@ -101,7 +101,9 @@ public class MainActivity extends Activity {
 							.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		// Contacts provider
@@ -114,16 +116,24 @@ public class MainActivity extends Activity {
 							.getCount()));
 			if (cursor != null)
 				cursor.close();
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		// SMS provider
-		cursor = cr.query(Uri.parse("content://sms/"), null, null, null, null);
-		((TextView) findViewById(R.id.SmsProvider))
-				.setText(cursor == null ? "null" : Integer.toString(cursor
-						.getCount()));
-		if (cursor != null)
-			cursor.close();
+		try {
+			cursor = cr.query(Uri.parse("content://sms/"), null, null, null,
+					null);
+			((TextView) findViewById(R.id.SmsProvider))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
 
 		// Read SMSes
 		try {
@@ -136,9 +146,8 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.getAllMessagesFromIcc))
 					.setText(Integer.toString(msgs.size()));
 		} catch (Exception ex) {
-			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(ex
-					.toString());
 			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
 		// Line 1 number
@@ -147,7 +156,9 @@ public class MainActivity extends Activity {
 			String phoneNumber = telManager.getLine1Number();
 			((TextView) findViewById(R.id.getLine1Number))
 					.setText(phoneNumber == null ? "null" : phoneNumber);
-		} catch (Throwable ignored) {
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -161,32 +172,51 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
+		case R.id.menu_view:
+			try {
+				Intent view = new Intent(Intent.ACTION_VIEW);
+				view.setData(Uri.parse("http://www.faircode.eu/"));
+				startActivity(view);
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			}
+			return true;
 		case R.id.menu_receive_sms:
 			try {
-				intent = new Intent(Sms.Intents.ACTION_CHANGE_DEFAULT);
-				intent.putExtra(Sms.Intents.EXTRA_PACKAGE_NAME,
+				intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
 						getPackageName());
 				startActivity(intent);
-			} catch (Throwable ignored) {
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 			}
 			return true;
 
 		case R.id.menu_restore_sms:
 			try {
-				intent = new Intent(Sms.Intents.ACTION_CHANGE_DEFAULT);
-				intent.putExtra(Sms.Intents.EXTRA_PACKAGE_NAME,
+				intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
 						"com.google.android.talk");
 				startActivity(intent);
-			} catch (Throwable ignored) {
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 			}
 			return true;
 
 		case R.id.menu_send_sms:
-			TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-			String phoneNumber = telManager.getLine1Number();
-			SmsManager smsManager = SmsManager.getDefault();
-			smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null,
-					null);
+			try {
+				TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+				String phoneNumber = telManager.getLine1Number();
+				SmsManager smsManager = SmsManager.getDefault();
+				smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null,
+						null);
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			}
 			return true;
 
 		default:
