@@ -112,4 +112,16 @@
             android:layout_marginLeft="6dip" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:text="getAllMessagesFromIcc"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/getAllMessagesFromIcc"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
 </TableLayout>

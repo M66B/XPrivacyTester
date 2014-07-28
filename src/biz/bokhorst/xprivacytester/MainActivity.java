@@ -1,5 +1,8 @@
 package biz.bokhorst.xprivacytester;
 
+import java.lang.reflect.Method;
+import java.util.List;
+
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -11,6 +14,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.telephony.SmsMessage;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -82,5 +86,23 @@ public class MainActivity extends Activity {
 						.getCount()));
 		if (cursor != null)
 			cursor.close();
+
+		// SMS
+		try {
+			Class<?> cSmsManager = Class
+					.forName("android.telephony.SmsManager");
+			Method mGetDefault = cSmsManager.getMethod("getDefault");
+			Object smsManager = mGetDefault.invoke(null);
+			Method getMessages = cSmsManager.getMethod("getAllMessagesFromIcc");
+			@SuppressWarnings("unchecked")
+			List<SmsMessage> msgs = (List<SmsMessage>) getMessages
+					.invoke(smsManager);
+			((TextView) findViewById(R.id.getAllMessagesFromIcc))
+					.setText(Integer.toString(msgs.size()));
+		} catch (Exception ex) {
+			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(ex
+					.toString());
+			ex.printStackTrace();
+		}
 	}
 }
