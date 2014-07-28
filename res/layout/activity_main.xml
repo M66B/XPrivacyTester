@@ -19,6 +19,30 @@
     <TableRow>
 
         <TextView
+            android:text="getAccountsByType"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/getAccountsByType"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:text="addOnAccountsUpdatedListener"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/addOnAccountsUpdatedListener"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
             android:text="getCurrentSyncs"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />

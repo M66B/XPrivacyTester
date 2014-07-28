@@ -3,7 +3,9 @@ package biz.bokhorst.xprivacytester;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.OnAccountsUpdateListener;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -34,9 +36,25 @@ public class MainActivity extends Activity {
 
 		// Account manager methods
 		try {
-			AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+			final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
 			((TextView) findViewById(R.id.getAccounts)).setText(Integer
 					.toString(accountManager.getAccounts().length));
+
+			((TextView) findViewById(R.id.getAccountsByType))
+					.setText(Integer.toString(accountManager
+							.getAccountsByType("com.google").length));
+
+			OnAccountsUpdateListener listener = new OnAccountsUpdateListener() {
+				@Override
+				public void onAccountsUpdated(Account[] accounts) {
+					((TextView) MainActivity.this
+							.findViewById(R.id.addOnAccountsUpdatedListener))
+							.setText(Integer.toString(accounts.length));
+					accountManager.removeOnAccountsUpdatedListener(this);
+				}
+			};
+			accountManager.addOnAccountsUpdatedListener(listener, null, true);
+
 			((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
 					.toString(ContentResolver.getCurrentSyncs().size()));
 		} catch (Throwable ex) {
