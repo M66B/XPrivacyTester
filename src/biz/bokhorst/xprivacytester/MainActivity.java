@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	@Override
-	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -181,26 +180,6 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
-		// Read clipboard
-		try {
-			ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-			ClipboardManager.OnPrimaryClipChangedListener clipListener = new ClipboardManager.OnPrimaryClipChangedListener() {
-				@Override
-				public void onPrimaryClipChanged() {
-				}
-			};
-			clipboard.addPrimaryClipChangedListener(clipListener);
-			clipboard.getPrimaryClip();
-			clipboard.getPrimaryClipDescription();
-			clipboard.getText();
-			clipboard.hasPrimaryClip();
-			clipboard.hasText();
-			clipboard.removePrimaryClipChangedListener(clipListener);
-		} catch (Throwable ex) {
-			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
-		}
-
 		// Android ID
 		try {
 			String androidDeviceId = android.provider.Settings.Secure
@@ -220,6 +199,7 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
@@ -264,6 +244,27 @@ public class MainActivity extends Activity {
 				SmsManager smsManager = SmsManager.getDefault();
 				smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null,
 						null);
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			}
+			return true;
+
+		case R.id.menu_clipboard:
+			try {
+				ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+				ClipboardManager.OnPrimaryClipChangedListener clipListener = new ClipboardManager.OnPrimaryClipChangedListener() {
+					@Override
+					public void onPrimaryClipChanged() {
+					}
+				};
+				clipboard.addPrimaryClipChangedListener(clipListener);
+				clipboard.getPrimaryClip();
+				clipboard.getPrimaryClipDescription();
+				clipboard.getText();
+				clipboard.hasPrimaryClip();
+				clipboard.hasText();
+				clipboard.removePrimaryClipChangedListener(clipListener);
 			} catch (Throwable ex) {
 				ex.printStackTrace();
 				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
