@@ -22,6 +22,7 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
+import android.view.InputDevice;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -208,6 +209,21 @@ public class MainActivity extends Activity {
 					"wifi_country_code");
 			((TextView) findViewById(R.id.wifi_country_code))
 					.setText(value == null ? "null" : value);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// Input device
+		try {
+			int[] deviceId = InputDevice.getDeviceIds();
+			if (deviceId == null || deviceId.length == 0)
+				((TextView) findViewById(R.id.InputDevice)).setText("-");
+			else {
+				InputDevice inputDevice = InputDevice.getDevice(deviceId[0]);
+				((TextView) findViewById(R.id.InputDevice)).setText(inputDevice
+						.getName() + "/" + inputDevice.getDescriptor());
+			}
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
