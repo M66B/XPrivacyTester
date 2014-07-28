@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Browser;
 import android.provider.CalendarContract.Calendars;
@@ -280,11 +281,13 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
+		// SERIAL
+		((TextView) findViewById(R.id.SERIAL)).setText(Build.SERIAL);
+
 		// TODO: SIP
 		// TODO: SystemProperties
 		// TODO: IoBridge
 		// TODO: AdvertisingId
-		// TODO: SERIAL
 	}
 
 	@Override
