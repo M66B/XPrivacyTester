@@ -239,6 +239,18 @@
         <TableRow>
 
             <TextView
+                android:text="UserDictionary"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/UserDictionary"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
                 android:text="GMailProvider"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
@@ -251,12 +263,12 @@
         <TableRow>
 
             <TextView
-                android:text="UserDictionary"
+                android:text="GservicesProvider"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/UserDictionary"
+                android:id="@+id/GservicesProvider"
                 android:layout_marginLeft="6dip" />
         </TableRow>
     </TableLayout>

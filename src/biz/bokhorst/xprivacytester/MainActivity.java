@@ -45,26 +45,23 @@ public class MainActivity extends Activity {
 		// Account manager methods
 		try {
 			final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-			((TextView) findViewById(R.id.getAccounts)).setText(Integer
-					.toString(accountManager.getAccounts().length));
+			((TextView) findViewById(R.id.getAccounts)).setText(Integer.toString(accountManager.getAccounts().length));
 
-			((TextView) findViewById(R.id.getAccountsByType))
-					.setText(Integer.toString(accountManager
-							.getAccountsByType("com.google").length));
+			((TextView) findViewById(R.id.getAccountsByType)).setText(Integer.toString(accountManager
+					.getAccountsByType("com.google").length));
 
 			OnAccountsUpdateListener listener = new OnAccountsUpdateListener() {
 				@Override
 				public void onAccountsUpdated(Account[] accounts) {
-					((TextView) MainActivity.this
-							.findViewById(R.id.addOnAccountsUpdatedListener))
-							.setText(Integer.toString(accounts.length));
+					((TextView) MainActivity.this.findViewById(R.id.addOnAccountsUpdatedListener)).setText(Integer
+							.toString(accounts.length));
 					accountManager.removeOnAccountsUpdatedListener(this);
 				}
 			};
 			accountManager.addOnAccountsUpdatedListener(listener, null, true);
 
-			((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
-					.toString(ContentResolver.getCurrentSyncs().size()));
+			((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer.toString(ContentResolver.getCurrentSyncs()
+					.size()));
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -73,17 +70,14 @@ public class MainActivity extends Activity {
 		// Package manager methods
 		try {
 			PackageManager packageManager = getPackageManager();
-			((TextView) findViewById(R.id.getInstalledApplications))
-					.setText(Integer.toString(packageManager
-							.getInstalledApplications(0).size()));
-			((TextView) findViewById(R.id.getInstalledPackages))
-					.setText(Integer.toString(packageManager
-							.getInstalledPackages(0).size()));
+			((TextView) findViewById(R.id.getInstalledApplications)).setText(Integer.toString(packageManager
+					.getInstalledApplications(0).size()));
+			((TextView) findViewById(R.id.getInstalledPackages)).setText(Integer.toString(packageManager
+					.getInstalledPackages(0).size()));
 			Intent view = new Intent(Intent.ACTION_VIEW);
 			view.setData(Uri.parse("http://www.faircode.eu/"));
-			((TextView) findViewById(R.id.queryIntentActivities))
-					.setText(Integer.toString(packageManager
-							.queryIntentActivities(view, 0).size()));
+			((TextView) findViewById(R.id.queryIntentActivities)).setText(Integer.toString(packageManager
+					.queryIntentActivities(view, 0).size()));
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -91,15 +85,12 @@ public class MainActivity extends Activity {
 
 		// Browser provider
 		try {
-			String[] proj = new String[] { Browser.BookmarkColumns.TITLE,
-					Browser.BookmarkColumns.URL };
+			String[] proj = new String[] { Browser.BookmarkColumns.TITLE, Browser.BookmarkColumns.URL };
 			String sel = Browser.BookmarkColumns.BOOKMARK + " = 0";
 			// 0 = history, 1 = bookmark
-			cursor = getContentResolver().query(Browser.BOOKMARKS_URI, proj,
-					sel, null, null);
-			((TextView) findViewById(R.id.BrowserProvider2))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			cursor = getContentResolver().query(Browser.BOOKMARKS_URI, proj, sel, null, null);
+			((TextView) findViewById(R.id.BrowserProvider2)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Throwable ex) {
@@ -108,22 +99,18 @@ public class MainActivity extends Activity {
 		}
 
 		// Calendar provider
-		cursor = cr.query(Calendars.CONTENT_URI,
-				new String[] { Calendars._ID }, null, null, null);
-		((TextView) findViewById(R.id.CalendarProvider2))
-				.setText(cursor == null ? "null" : Integer.toString(cursor
-						.getCount()));
+		cursor = cr.query(Calendars.CONTENT_URI, new String[] { Calendars._ID }, null, null, null);
+		((TextView) findViewById(R.id.CalendarProvider2)).setText(cursor == null ? "null" : Integer.toString(cursor
+				.getCount()));
 		if (cursor != null)
 			cursor.close();
 
 		// Callog provider
 		try {
-			cursor = this.getContentResolver().query(
-					android.provider.CallLog.Calls.CONTENT_URI,
+			cursor = this.getContentResolver().query(android.provider.CallLog.Calls.CONTENT_URI,
 					new String[] { CallLog.Calls._ID }, null, null, null);
-			((TextView) findViewById(R.id.CallLogProvider))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			((TextView) findViewById(R.id.CallLogProvider)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Throwable ex) {
@@ -133,12 +120,10 @@ public class MainActivity extends Activity {
 
 		// Contacts provider
 		try {
-			cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
-					new String[] { ContactsContract.Contacts._ID }, null, null,
-					null);
-			((TextView) findViewById(R.id.ContactsProvider2))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, new String[] { ContactsContract.Contacts._ID },
+					null, null, null);
+			((TextView) findViewById(R.id.ContactsProvider2)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Throwable ex) {
@@ -148,11 +133,9 @@ public class MainActivity extends Activity {
 
 		// SMS provider
 		try {
-			cursor = cr.query(Uri.parse("content://sms/"), null, null, null,
-					null);
-			((TextView) findViewById(R.id.SmsProvider))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			cursor = cr.query(Uri.parse("content://sms/"), null, null, null, null);
+			((TextView) findViewById(R.id.SmsProvider)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Exception ex) {
@@ -163,13 +146,10 @@ public class MainActivity extends Activity {
 		// Read SMSes
 		try {
 			SmsManager smsManager = SmsManager.getDefault();
-			Method getMessages = smsManager.getClass().getMethod(
-					"getAllMessagesFromIcc");
+			Method getMessages = smsManager.getClass().getMethod("getAllMessagesFromIcc");
 			@SuppressWarnings("unchecked")
-			List<SmsMessage> msgs = (List<SmsMessage>) getMessages
-					.invoke(smsManager);
-			((TextView) findViewById(R.id.getAllMessagesFromIcc))
-					.setText(Integer.toString(msgs.size()));
+			List<SmsMessage> msgs = (List<SmsMessage>) getMessages.invoke(smsManager);
+			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(Integer.toString(msgs.size()));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -179,8 +159,7 @@ public class MainActivity extends Activity {
 		try {
 			TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 			String phoneNumber = telManager.getLine1Number();
-			((TextView) findViewById(R.id.getLine1Number))
-					.setText(phoneNumber == null ? "null" : phoneNumber);
+			((TextView) findViewById(R.id.getLine1Number)).setText(phoneNumber == null ? "null" : phoneNumber);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -188,10 +167,8 @@ public class MainActivity extends Activity {
 
 		// Android ID
 		try {
-			String value = android.provider.Settings.Secure.getString(cr,
-					android.provider.Settings.Secure.ANDROID_ID);
-			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID))
-					.setText(value == null ? "null" : value);
+			String value = android.provider.Settings.Secure.getString(cr, android.provider.Settings.Secure.ANDROID_ID);
+			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -199,10 +176,8 @@ public class MainActivity extends Activity {
 
 		// default_dns_server
 		try {
-			String value = android.provider.Settings.Global.getString(cr,
-					"default_dns_server");
-			((TextView) findViewById(R.id.default_dns_server))
-					.setText(value == null ? "null" : value);
+			String value = android.provider.Settings.Global.getString(cr, "default_dns_server");
+			((TextView) findViewById(R.id.default_dns_server)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -210,10 +185,8 @@ public class MainActivity extends Activity {
 
 		// wifi_country_code
 		try {
-			String value = android.provider.Settings.Global.getString(cr,
-					"wifi_country_code");
-			((TextView) findViewById(R.id.wifi_country_code))
-					.setText(value == null ? "null" : value);
+			String value = android.provider.Settings.Global.getString(cr, "wifi_country_code");
+			((TextView) findViewById(R.id.wifi_country_code)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -226,8 +199,8 @@ public class MainActivity extends Activity {
 				((TextView) findViewById(R.id.InputDevice)).setText("-");
 			else {
 				InputDevice inputDevice = InputDevice.getDevice(deviceId[0]);
-				((TextView) findViewById(R.id.InputDevice)).setText(inputDevice
-						.getName() + "/" + inputDevice.getDescriptor());
+				((TextView) findViewById(R.id.InputDevice)).setText(inputDevice.getName() + "/"
+						+ inputDevice.getDescriptor());
 			}
 		} catch (Throwable ex) {
 			ex.printStackTrace();
@@ -236,11 +209,9 @@ public class MainActivity extends Activity {
 
 		// Downloads provider
 		try {
-			cursor = cr.query(Uri.parse("content://downloads/my_downloads"),
-					null, null, null, null);
-			((TextView) findViewById(R.id.Downloads))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			cursor = cr.query(Uri.parse("content://downloads/my_downloads"), null, null, null, null);
+			((TextView) findViewById(R.id.Downloads)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Exception ex) {
@@ -250,11 +221,9 @@ public class MainActivity extends Activity {
 
 		// User dictionary
 		try {
-			cursor = cr.query(UserDictionary.Words.CONTENT_URI, null, null,
-					null, null);
-			((TextView) findViewById(R.id.UserDictionary))
-					.setText(cursor == null ? "null" : Integer.toString(cursor
-							.getCount()));
+			cursor = cr.query(UserDictionary.Words.CONTENT_URI, null, null, null, null);
+			((TextView) findViewById(R.id.UserDictionary)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
 			if (cursor != null)
 				cursor.close();
 		} catch (Exception ex) {
@@ -265,8 +234,7 @@ public class MainActivity extends Activity {
 		// GMailProvider
 		try {
 			AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-			accountManager.getAccountsByTypeAndFeatures("com.google",
-					new String[] { "service_mail" },
+			accountManager.getAccountsByTypeAndFeatures("com.google", new String[] { "service_mail" },
 					new AccountManagerCallback<Account[]>() {
 						@Override
 						public void run(AccountManagerFuture<Account[]> future) {
@@ -276,29 +244,37 @@ public class MainActivity extends Activity {
 								if (accounts != null && accounts.length > 0) {
 									// e-mail address
 									String selectedAccount = accounts[0].name;
-									Uri labels = GmailContract.Labels
-											.getLabelsUri(selectedAccount);
-									Cursor cursor = cr.query(labels, null,
-											null, null, null);
+									Uri labels = GmailContract.Labels.getLabelsUri(selectedAccount);
+									Cursor cursor = cr.query(labels, null, null, null, null);
 
-									((TextView) findViewById(R.id.GMailProvider))
-											.setText(cursor == null ? "null"
-													: Integer.toString(cursor
-															.getCount()));
+									((TextView) findViewById(R.id.GMailProvider)).setText(cursor == null ? "null"
+											: Integer.toString(cursor.getCount()));
 									if (cursor != null)
 										cursor.close();
 
 								} else
-									((TextView) findViewById(R.id.GMailProvider))
-											.setText("No e-mail account");
+									((TextView) findViewById(R.id.GMailProvider)).setText("No e-mail account");
 							} catch (Throwable ex) {
 								ex.printStackTrace();
-								Toast.makeText(MainActivity.this,
-										ex.toString(), Toast.LENGTH_LONG)
-										.show();
+								Toast.makeText(MainActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
 							}
 						}
 					}, null);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// GservicesProvider
+		try {
+			Uri gsf = Uri.parse("content://com.google.android.gsf.gservices");
+			cursor = cr.query(gsf, null, null, new String[] { "android_id" }, null);
+			String gsf_id = null;
+			if (cursor.moveToFirst())
+				gsf_id = Long.toHexString(Long.parseLong(cursor.getString(1)));
+			((TextView) findViewById(R.id.GservicesProvider)).setText(gsf_id == null ? "null" : gsf_id);
+			if (cursor != null)
+				cursor.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -308,7 +284,6 @@ public class MainActivity extends Activity {
 		// TODO: SystemProperties
 		// TODO: IoBridge
 		// TODO: AdvertisingId
-		// TODO: GservicesProvider
 		// TODO: SERIAL
 	}
 
@@ -336,8 +311,7 @@ public class MainActivity extends Activity {
 		case R.id.menu_receive_sms:
 			try {
 				intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
-						getPackageName());
+				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getPackageName());
 				startActivity(intent);
 			} catch (Throwable ex) {
 				ex.printStackTrace();
@@ -349,8 +323,7 @@ public class MainActivity extends Activity {
 			try {
 				// Settings.Secure."sms_default_application"
 				intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
-						"com.google.android.talk");
+				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, "com.google.android.talk");
 				startActivity(intent);
 			} catch (Throwable ex) {
 				ex.printStackTrace();
@@ -363,8 +336,7 @@ public class MainActivity extends Activity {
 				TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 				String phoneNumber = telManager.getLine1Number();
 				SmsManager smsManager = SmsManager.getDefault();
-				smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null,
-						null);
+				smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null, null);
 			} catch (Throwable ex) {
 				ex.printStackTrace();
 				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
