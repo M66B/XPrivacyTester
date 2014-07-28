@@ -182,10 +182,32 @@ public class MainActivity extends Activity {
 
 		// Android ID
 		try {
-			String androidDeviceId = android.provider.Settings.Secure
-					.getString(cr, android.provider.Settings.Secure.ANDROID_ID);
+			String value = android.provider.Settings.Secure.getString(cr,
+					android.provider.Settings.Secure.ANDROID_ID);
 			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID))
-					.setText(androidDeviceId == null ? "null" : androidDeviceId);
+					.setText(value == null ? "null" : value);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// default_dns_server
+		try {
+			String value = android.provider.Settings.Global.getString(cr,
+					"default_dns_server");
+			((TextView) findViewById(R.id.default_dns_server))
+					.setText(value == null ? "null" : value);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// wifi_country_code
+		try {
+			String value = android.provider.Settings.Global.getString(cr,
+					"wifi_country_code");
+			((TextView) findViewById(R.id.wifi_country_code))
+					.setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -227,6 +249,7 @@ public class MainActivity extends Activity {
 
 		case R.id.menu_restore_sms:
 			try {
+				// Settings.Secure."sms_default_application"
 				intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
 				intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
 						"com.google.android.talk");
