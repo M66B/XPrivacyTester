@@ -3,8 +3,12 @@ package biz.bokhorst.xprivacytester;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.google.android.gm.contentprovider.GmailContract;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.accounts.OnAccountsUpdateListener;
 import android.app.Activity;
 import android.content.ClipboardManager;
@@ -34,6 +38,9 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		Cursor cursor;
+		final ContentResolver cr = getContentResolver();
 
 		// Account manager methods
 		try {
@@ -81,9 +88,6 @@ public class MainActivity extends Activity {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
-
-		Cursor cursor;
-		ContentResolver cr = getContentResolver();
 
 		// Browser provider
 		try {
@@ -258,8 +262,49 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
+		// GMailProvider
+		try {
+			AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+			accountManager.getAccountsByTypeAndFeatures("com.google",
+					new String[] { "service_mail" },
+					new AccountManagerCallback<Account[]>() {
+						@Override
+						public void run(AccountManagerFuture<Account[]> future) {
+							Account[] accounts = null;
+							try {
+								accounts = future.getResult();
+								if (accounts != null && accounts.length > 0) {
+									// e-mail address
+									String selectedAccount = accounts[0].name;
+									Uri labels = GmailContract.Labels
+											.getLabelsUri(selectedAccount);
+									Cursor cursor = cr.query(labels, null,
+											null, null, null);
+
+									((TextView) findViewById(R.id.GMailProvider))
+											.setText(cursor == null ? "null"
+													: Integer.toString(cursor
+															.getCount()));
+									if (cursor != null)
+										cursor.close();
+
+								} else
+									((TextView) findViewById(R.id.GMailProvider))
+											.setText("No e-mail account");
+							} catch (Throwable ex) {
+								ex.printStackTrace();
+								Toast.makeText(MainActivity.this,
+										ex.toString(), Toast.LENGTH_LONG)
+										.show();
+							}
+						}
+					}, null);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
 		// TODO: SIP
-		// TODO: EMailProvider/GMailProvider
 		// TODO: SystemProperties
 		// TODO: IoBridge
 		// TODO: AdvertisingId
