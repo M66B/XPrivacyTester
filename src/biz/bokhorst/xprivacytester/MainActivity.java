@@ -15,8 +15,12 @@ import android.provider.Browser;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.provider.Telephony.Sms;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.telephony.TelephonyManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -29,41 +33,54 @@ public class MainActivity extends Activity {
 		// View action
 		Intent view = new Intent(Intent.ACTION_VIEW);
 		view.setData(Uri.parse("http://www.faircode.eu/"));
-		startActivity(view);
+		try {
+			startActivity(view);
+		} catch (Throwable ignored) {
+		}
 
 		// Account manager methods
-		AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-		((TextView) findViewById(R.id.getAccounts)).setText(Integer
-				.toString(accountManager.getAccounts().length));
-		((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
-				.toString(ContentResolver.getCurrentSyncs().size()));
+		try {
+			AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+			((TextView) findViewById(R.id.getAccounts)).setText(Integer
+					.toString(accountManager.getAccounts().length));
+			((TextView) findViewById(R.id.getCurrentSyncs)).setText(Integer
+					.toString(ContentResolver.getCurrentSyncs().size()));
+		} catch (Throwable ignored) {
+		}
 
 		// Package manager methods
-		PackageManager packageManager = getPackageManager();
-		((TextView) findViewById(R.id.getInstalledApplications))
-				.setText(Integer.toString(packageManager
-						.getInstalledApplications(0).size()));
-		((TextView) findViewById(R.id.getInstalledPackages)).setText(Integer
-				.toString(packageManager.getInstalledPackages(0).size()));
-		((TextView) findViewById(R.id.queryIntentActivities))
-				.setText(Integer.toString(packageManager.queryIntentActivities(
-						view, 0).size()));
+		try {
+			PackageManager packageManager = getPackageManager();
+			((TextView) findViewById(R.id.getInstalledApplications))
+					.setText(Integer.toString(packageManager
+							.getInstalledApplications(0).size()));
+			((TextView) findViewById(R.id.getInstalledPackages))
+					.setText(Integer.toString(packageManager
+							.getInstalledPackages(0).size()));
+			((TextView) findViewById(R.id.queryIntentActivities))
+					.setText(Integer.toString(packageManager
+							.queryIntentActivities(view, 0).size()));
+		} catch (Throwable ignored) {
+		}
 
 		Cursor cursor;
 		ContentResolver cr = getContentResolver();
 
 		// Browser provider
-		String[] proj = new String[] { Browser.BookmarkColumns.TITLE,
-				Browser.BookmarkColumns.URL };
-		String sel = Browser.BookmarkColumns.BOOKMARK + " = 0";
-		// 0 = history, 1 = bookmark
-		cursor = getContentResolver().query(Browser.BOOKMARKS_URI, proj, sel,
-				null, null);
-		((TextView) findViewById(R.id.BrowserProvider2))
-				.setText(cursor == null ? "null" : Integer.toString(cursor
-						.getCount()));
-		if (cursor != null)
-			cursor.close();
+		try {
+			String[] proj = new String[] { Browser.BookmarkColumns.TITLE,
+					Browser.BookmarkColumns.URL };
+			String sel = Browser.BookmarkColumns.BOOKMARK + " = 0";
+			// 0 = history, 1 = bookmark
+			cursor = getContentResolver().query(Browser.BOOKMARKS_URI, proj,
+					sel, null, null);
+			((TextView) findViewById(R.id.BrowserProvider2))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Throwable ignored) {
+		}
 
 		// Calendar provider
 		cursor = cr.query(Calendars.CONTENT_URI,
@@ -75,24 +92,30 @@ public class MainActivity extends Activity {
 			cursor.close();
 
 		// Callog provider
-		cursor = this.getContentResolver().query(
-				android.provider.CallLog.Calls.CONTENT_URI,
-				new String[] { CallLog.Calls._ID }, null, null, null);
-		((TextView) findViewById(R.id.CallLogProvider))
-				.setText(cursor == null ? "null" : Integer.toString(cursor
-						.getCount()));
-		if (cursor != null)
-			cursor.close();
+		try {
+			cursor = this.getContentResolver().query(
+					android.provider.CallLog.Calls.CONTENT_URI,
+					new String[] { CallLog.Calls._ID }, null, null, null);
+			((TextView) findViewById(R.id.CallLogProvider))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Throwable ignored) {
+		}
 
 		// Contacts provider
-		cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
-				new String[] { ContactsContract.Contacts._ID }, null, null,
-				null);
-		((TextView) findViewById(R.id.ContactsProvider2))
-				.setText(cursor == null ? "null" : Integer.toString(cursor
-						.getCount()));
-		if (cursor != null)
-			cursor.close();
+		try {
+			cursor = cr.query(ContactsContract.Contacts.CONTENT_URI,
+					new String[] { ContactsContract.Contacts._ID }, null, null,
+					null);
+			((TextView) findViewById(R.id.ContactsProvider2))
+					.setText(cursor == null ? "null" : Integer.toString(cursor
+							.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Throwable ignored) {
+		}
 
 		// SMS provider
 		cursor = cr.query(Uri.parse("content://sms/"), null, null, null, null);
@@ -102,11 +125,9 @@ public class MainActivity extends Activity {
 		if (cursor != null)
 			cursor.close();
 
-		// SMS
-		SmsManager smsManager = SmsManager.getDefault();
-
 		// Read SMSes
 		try {
+			SmsManager smsManager = SmsManager.getDefault();
 			Method getMessages = smsManager.getClass().getMethod(
 					"getAllMessagesFromIcc");
 			@SuppressWarnings("unchecked")
@@ -120,7 +141,56 @@ public class MainActivity extends Activity {
 			ex.printStackTrace();
 		}
 
-		// Send SMS
-		smsManager.sendTextMessage("+123456789", null, "XPrivacy", null, null);
+		// Line 1 number
+		try {
+			TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+			String phoneNumber = telManager.getLine1Number();
+			((TextView) findViewById(R.id.getLine1Number))
+					.setText(phoneNumber == null ? "null" : phoneNumber);
+		} catch (Throwable ignored) {
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		switch (item.getItemId()) {
+		case R.id.menu_receive_sms:
+			try {
+				intent = new Intent(Sms.Intents.ACTION_CHANGE_DEFAULT);
+				intent.putExtra(Sms.Intents.EXTRA_PACKAGE_NAME,
+						getPackageName());
+				startActivity(intent);
+			} catch (Throwable ignored) {
+			}
+			return true;
+
+		case R.id.menu_restore_sms:
+			try {
+				intent = new Intent(Sms.Intents.ACTION_CHANGE_DEFAULT);
+				intent.putExtra(Sms.Intents.EXTRA_PACKAGE_NAME,
+						"com.google.android.talk");
+				startActivity(intent);
+			} catch (Throwable ignored) {
+			}
+			return true;
+
+		case R.id.menu_send_sms:
+			TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+			String phoneNumber = telManager.getLine1Number();
+			SmsManager smsManager = SmsManager.getDefault();
+			smsManager.sendTextMessage(phoneNumber, null, "XPrivacy", null,
+					null);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

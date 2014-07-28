@@ -136,4 +136,16 @@
             android:layout_marginLeft="6dip" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:text="getLine1Number"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/getLine1Number"
+            android:layout_marginLeft="6dip" />
+    </TableRow>
+
 </TableLayout>

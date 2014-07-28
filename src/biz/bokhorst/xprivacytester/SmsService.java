@@ -12,11 +12,9 @@ public class SmsService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		if (intent != null
-				&& TelephonyManager.ACTION_RESPOND_VIA_MESSAGE.equals(intent
-						.getAction())) {
-			Toast.makeText(this, "SMS received: " + intent.getDataString(),
+		String action = (intent == null ? null : intent.getAction());
+		if (TelephonyManager.ACTION_RESPOND_VIA_MESSAGE.equals(action))
+			Toast.makeText(this, action + ": " + intent.getDataString(),
 					Toast.LENGTH_LONG).show();
-		}
 	}
 }
