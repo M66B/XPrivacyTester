@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.widget.TextView;
 
@@ -88,12 +89,12 @@ public class MainActivity extends Activity {
 			cursor.close();
 
 		// SMS
+		SmsManager smsManager = SmsManager.getDefault();
+
+		// Read SMSes
 		try {
-			Class<?> cSmsManager = Class
-					.forName("android.telephony.SmsManager");
-			Method mGetDefault = cSmsManager.getMethod("getDefault");
-			Object smsManager = mGetDefault.invoke(null);
-			Method getMessages = cSmsManager.getMethod("getAllMessagesFromIcc");
+			Method getMessages = smsManager.getClass().getMethod(
+					"getAllMessagesFromIcc");
 			@SuppressWarnings("unchecked")
 			List<SmsMessage> msgs = (List<SmsMessage>) getMessages
 					.invoke(smsManager);
@@ -104,5 +105,8 @@ public class MainActivity extends Activity {
 					.toString());
 			ex.printStackTrace();
 		}
+
+		// Send SMS
+		smsManager.sendTextMessage("+123456789", null, "XPrivacy", null, null);
 	}
 }
