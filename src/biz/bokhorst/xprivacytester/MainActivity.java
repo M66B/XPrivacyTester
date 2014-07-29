@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.sip.SipManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Browser;
@@ -310,6 +311,7 @@ public class MainActivity extends Activity {
 			}
 		}.start();
 
+		// IoBridge
 		try {
 			Class<?> cSystemProperties = Class.forName("android.os.SystemProperties");
 			Method mGet = cSystemProperties.getMethod("get", String.class);
@@ -329,8 +331,11 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.proc)).setText(ex.getClass().getName());
 		}
 
+		// SIP
+		SipManager sipManager = SipManager.newInstance(this);
+		((TextView) findViewById(R.id.SIP)).setText(sipManager == null ? "null" : sipManager.getClass().getName());
+
 		// TODO: EMailProvider
-		// TODO: SIP
 	}
 
 	@Override

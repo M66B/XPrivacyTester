@@ -35,7 +35,7 @@
         <TableRow>
 
             <TextView
-                android:text="addOnAccountsUpdatedListener"
+                android:text="UpdatedListener"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
@@ -179,7 +179,7 @@
         <TableRow>
 
             <TextView
-                android:text="Settings.Secure.ANDROID_ID"
+                android:text="ANDROID_ID"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
@@ -329,6 +329,18 @@
 
             <TextView
                 android:id="@+id/proc"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="SIP"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/SIP"
                 android:layout_marginLeft="6dip" />
         </TableRow>
     </TableLayout>
