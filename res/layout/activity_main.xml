@@ -371,12 +371,24 @@
         <TableRow>
 
             <TextView
-                android:text="NetworkInterface"
+                android:text="NetworkInterface.getNetworkInterfaces"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/NetworkInterface"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="NetworkInfo.getDetailedState"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/NetworkInfo"
                 android:layout_marginLeft="6dip" />
         </TableRow>
     </TableLayout>

@@ -24,6 +24,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.DetailedState;
 import android.net.Uri;
 import android.net.sip.SipManager;
 import android.os.Build;
@@ -380,7 +383,7 @@ public class MainActivity extends Activity {
 
 		// NetworkInterface
 		try {
-			final Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+			Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
 			if (netInterfaces == null)
 				((TextView) findViewById(R.id.NetworkInterface)).setText("null");
 			else {
@@ -394,6 +397,17 @@ public class MainActivity extends Activity {
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.NetworkInterface)).setText(ex.getClass().getName());
+		}
+
+		// NetworkInfo
+		try {
+			ConnectivityManager conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			NetworkInfo ni = conMan.getActiveNetworkInfo();
+			DetailedState ds = ni.getDetailedState();
+			((TextView) findViewById(R.id.NetworkInfo)).setText(ds == null ? "null" : ds.toString());
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.NetworkInfo)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
