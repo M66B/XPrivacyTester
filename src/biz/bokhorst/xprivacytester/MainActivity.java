@@ -55,9 +55,13 @@ public class MainActivity extends Activity {
 		Cursor cursor;
 		final ContentResolver cr = getContentResolver();
 
+		final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+		ConnectivityManager conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+		UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
+
 		// Account manager methods
 		try {
-			final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
 			((TextView) findViewById(R.id.getAccounts)).setText(Integer.toString(accountManager.getAccounts().length));
 
 			((TextView) findViewById(R.id.getAccountsByType)).setText(Integer.toString(accountManager
@@ -170,7 +174,6 @@ public class MainActivity extends Activity {
 
 		// Line 1 number
 		try {
-			TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 			String phoneNumber = telManager.getLine1Number();
 			((TextView) findViewById(R.id.getLine1Number)).setText(phoneNumber == null ? "null" : phoneNumber);
 		} catch (Throwable ex) {
@@ -246,7 +249,6 @@ public class MainActivity extends Activity {
 
 		// GMailProvider
 		try {
-			AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
 			accountManager.getAccountsByTypeAndFeatures("com.google", new String[] { "service_mail" },
 					new AccountManagerCallback<Account[]>() {
 						@Override
@@ -342,7 +344,6 @@ public class MainActivity extends Activity {
 
 		// USB device
 		try {
-			UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
 			HashMap<String, UsbDevice> mapUsbDevice = usbManager.getDeviceList();
 			if (mapUsbDevice.size() == 0)
 				((TextView) findViewById(R.id.UsbDevice)).setText("no devices");
@@ -401,13 +402,21 @@ public class MainActivity extends Activity {
 
 		// NetworkInfo
 		try {
-			ConnectivityManager conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 			NetworkInfo ni = conMan.getActiveNetworkInfo();
 			DetailedState ds = ni.getDetailedState();
 			((TextView) findViewById(R.id.NetworkInfo)).setText(ds == null ? "null" : ds.toString());
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.NetworkInfo)).setText(ex.getClass().getName());
+		}
+
+		// NetworkInfo
+		try {
+			NetworkInfo[] ani = conMan.getAllNetworkInfo();
+			((TextView) findViewById(R.id.Connectivity)).setText(ani == null ? "null" : Integer.toString(ani.length));
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.Connectivity)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
