@@ -22,5 +22,9 @@
         android:id="@+id/menu_clipboard"
         android:title="Clipboard"
         tools:ignore="HardcodedText"/>
-    
+    <item
+        android:id="@+id/menu_sip"
+        android:title="SIP"
+        tools:ignore="HardcodedText"/>
+
 </menu>

@@ -337,14 +337,6 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.proc)).setText(ex.getClass().getName());
 		}
 
-		// SIP
-		try {
-			SipManager sipManager = SipManager.newInstance(this);
-			((TextView) findViewById(R.id.SIP)).setText(sipManager == null ? "null" : sipManager.getClass().getName());
-		} catch (Throwable ex) {
-			((TextView) findViewById(R.id.SIP)).setText(ex.getClass().getName());
-		}
-
 		// USB device
 		try {
 			UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
@@ -481,6 +473,16 @@ public class MainActivity extends Activity {
 			} catch (Throwable ex) {
 				ex.printStackTrace();
 				Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			}
+			return true;
+
+		case R.id.menu_sip:
+			try {
+				SipManager sipManager = SipManager.newInstance(this);
+				((TextView) findViewById(R.id.SIP)).setText(sipManager == null ? "null" : sipManager.getClass()
+						.getName());
+			} catch (Throwable ex) {
+				((TextView) findViewById(R.id.SIP)).setText(ex.getClass().getName());
 			}
 			return true;
 
