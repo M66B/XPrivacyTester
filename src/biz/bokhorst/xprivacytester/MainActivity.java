@@ -2,6 +2,7 @@ package biz.bokhorst.xprivacytester;
 
 import java.io.FileReader;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.List;
 
@@ -358,6 +359,30 @@ public class MainActivity extends Activity {
 			ex.printStackTrace();
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
+
+		// InetAddress
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					final InetAddress addr1 = InetAddress.getByName("faircode.eu");
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							((TextView) findViewById(R.id.InetAddress_getByName)).setText(addr1.toString());
+						}
+					});
+				} catch (final Throwable ex) {
+					ex.printStackTrace();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							((TextView) findViewById(R.id.InetAddress_getByName)).setText(ex.getClass().getName());
+						}
+					});
+				}
+			}
+		}.start();
 
 		// TODO: EMailProvider
 	}
