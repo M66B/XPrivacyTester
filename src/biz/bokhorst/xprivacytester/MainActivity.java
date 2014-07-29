@@ -2,6 +2,7 @@ package biz.bokhorst.xprivacytester;
 
 import java.io.FileReader;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.android.gm.contentprovider.GmailContract;
@@ -18,6 +19,8 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.net.sip.SipManager;
 import android.os.Build;
@@ -332,8 +335,29 @@ public class MainActivity extends Activity {
 		}
 
 		// SIP
-		SipManager sipManager = SipManager.newInstance(this);
-		((TextView) findViewById(R.id.SIP)).setText(sipManager == null ? "null" : sipManager.getClass().getName());
+		try {
+			SipManager sipManager = SipManager.newInstance(this);
+			((TextView) findViewById(R.id.SIP)).setText(sipManager == null ? "null" : sipManager.getClass().getName());
+		} catch (Throwable ex) {
+			((TextView) findViewById(R.id.SIP)).setText(ex.getClass().getName());
+		}
+
+		// USB device
+		try {
+			UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
+			HashMap<String, UsbDevice> mapUsbDevice = usbManager.getDeviceList();
+			if (mapUsbDevice.size() == 0)
+				((TextView) findViewById(R.id.UsbDevice)).setText("no devices");
+			else {
+				UsbDevice usbDevice = mapUsbDevice.values().toArray(new UsbDevice[0])[0];
+				((TextView) findViewById(R.id.UsbDevice)).setText(usbDevice.getDeviceId() + "/"
+						+ usbDevice.getDeviceName());
+			}
+
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
 
 		// TODO: EMailProvider
 	}

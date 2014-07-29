@@ -343,6 +343,18 @@
                 android:id="@+id/SIP"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="UsbDevice"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/UsbDevice"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>
