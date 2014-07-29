@@ -309,8 +309,20 @@ public class MainActivity extends Activity {
 			}
 		}.start();
 
+		try {
+			Class<?> cSystemProperties = Class.forName("android.os.SystemProperties");
+			Method mGet = cSystemProperties.getMethod("get", String.class);
+			String hostName = (String) mGet.invoke(null, "net.hostname");
+			String serialNo = (String) mGet.invoke(null, "ro.serialno");
+			((TextView) findViewById(R.id.net_hostname)).setText(hostName == null ? "null" : hostName);
+			((TextView) findViewById(R.id.ro_serialno)).setText(serialNo == null ? "null" : serialNo);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+		}
+
+		// TODO: EMailProvider
 		// TODO: SIP
-		// TODO: SystemProperties
 		// TODO: IoBridge
 	}
 
