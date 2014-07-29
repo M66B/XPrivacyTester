@@ -3,6 +3,8 @@ package biz.bokhorst.xprivacytester;
 import java.io.FileReader;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -369,7 +371,7 @@ public class MainActivity extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							((TextView) findViewById(R.id.InetAddress_getByName)).setText(addr1.toString());
+							((TextView) findViewById(R.id.InetAddress)).setText(addr1.toString());
 						}
 					});
 				} catch (final Throwable ex) {
@@ -377,12 +379,30 @@ public class MainActivity extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							((TextView) findViewById(R.id.InetAddress_getByName)).setText(ex.getClass().getName());
+							((TextView) findViewById(R.id.InetAddress)).setText(ex.getClass().getName());
 						}
 					});
 				}
 			}
 		}.start();
+
+		// NetworkInterface
+		try {
+			final Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+			if (netInterfaces == null)
+				((TextView) findViewById(R.id.NetworkInterface)).setText("null");
+			else {
+				int count = 0;
+				while (netInterfaces.hasMoreElements()) {
+					count++;
+					netInterfaces.nextElement();
+				}
+				((TextView) findViewById(R.id.NetworkInterface)).setText(Integer.toString(count));
+			}
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.NetworkInterface)).setText(ex.getClass().getName());
+		}
 
 		// TODO: EMailProvider
 	}

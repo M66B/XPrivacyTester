@@ -364,7 +364,19 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/InetAddress_getByName"
+                android:id="@+id/InetAddress"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="NetworkInterface"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/NetworkInterface"
                 android:layout_marginLeft="6dip" />
         </TableRow>
     </TableLayout>
