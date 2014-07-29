@@ -1,5 +1,6 @@
 package biz.bokhorst.xprivacytester;
 
+import java.io.FileReader;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -321,9 +322,15 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
 		}
 
+		try {
+			new FileReader("/proc/stat").close();
+			((TextView) findViewById(R.id.proc)).setText("readable");
+		} catch (Throwable ex) {
+			((TextView) findViewById(R.id.proc)).setText(ex.getClass().getName());
+		}
+
 		// TODO: EMailProvider
 		// TODO: SIP
-		// TODO: IoBridge
 	}
 
 	@Override
