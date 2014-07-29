@@ -29,6 +29,8 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.Uri;
 import android.net.sip.SipManager;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Browser;
@@ -59,6 +61,7 @@ public class MainActivity extends Activity {
 		ConnectivityManager conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 		UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
+		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 
 		// Account manager methods
 		try {
@@ -417,6 +420,16 @@ public class MainActivity extends Activity {
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.Connectivity)).setText(ex.getClass().getName());
+		}
+
+		// WifiManager
+		try {
+			List<ScanResult> scans = wifiManager.getScanResults();
+			((TextView) findViewById(R.id.WifiManager))
+					.setText(scans == null ? "null" : Integer.toString(scans.size()));
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.WifiManager)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
