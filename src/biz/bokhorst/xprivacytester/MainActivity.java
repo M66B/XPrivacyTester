@@ -22,6 +22,7 @@ import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -440,6 +441,15 @@ public class MainActivity extends Activity {
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.BluetoothAdapter)).setText(ex.getClass().getName());
+		}
+
+		// Configuration
+		try {
+			int mcc = Resources.getSystem().getConfiguration().mcc;
+			((TextView) findViewById(R.id.Configuration)).setText(Integer.toString(mcc));
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.Configuration)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
