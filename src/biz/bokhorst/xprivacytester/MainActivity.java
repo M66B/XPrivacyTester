@@ -17,6 +17,7 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OnAccountsUpdateListener;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -432,7 +433,19 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.WifiManager)).setText(ex.getClass().getName());
 		}
 
+		// BluetoothAdapter
+		try {
+			String btAddr = BluetoothAdapter.getDefaultAdapter().getAddress();
+			((TextView) findViewById(R.id.BluetoothAdapter)).setText(btAddr == null ? "null" : btAddr);
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.BluetoothAdapter)).setText(ex.getClass().getName());
+		}
+
 		// TODO: EMailProvider
+		// TODO: NFC
+		// TODO: notifications
+		// TODO: overlay
 	}
 
 	@Override
