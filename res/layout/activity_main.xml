@@ -6,13 +6,15 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:shrinkColumns="1" >
 
         <TableRow>
 
             <TextView
                 android:text="getAccounts"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -25,6 +27,7 @@
             <TextView
                 android:text="getAccountsByType"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -37,6 +40,7 @@
             <TextView
                 android:text="UpdatedListener"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -49,6 +53,7 @@
             <TextView
                 android:text="getCurrentSyncs"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -61,6 +66,7 @@
             <TextView
                 android:text="getInstalledApplications"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -85,6 +91,7 @@
             <TextView
                 android:text="queryIntentActivities"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -97,6 +104,7 @@
             <TextView
                 android:text="BrowserProvider2"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -109,6 +117,7 @@
             <TextView
                 android:text="CalendarProvider2"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -121,6 +130,7 @@
             <TextView
                 android:text="CallLogProvider"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -133,6 +143,7 @@
             <TextView
                 android:text="ContactsProvider2"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -145,6 +156,7 @@
             <TextView
                 android:text="SmsProvider"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -157,6 +169,7 @@
             <TextView
                 android:text="getAllMessagesFromIcc"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -169,6 +182,7 @@
             <TextView
                 android:text="getLine1Number"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -181,6 +195,7 @@
             <TextView
                 android:text="ANDROID_ID"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -193,6 +208,7 @@
             <TextView
                 android:text="default_dns_server"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -205,6 +221,7 @@
             <TextView
                 android:text="wifi_country_code"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -217,6 +234,7 @@
             <TextView
                 android:text="InputDevice (first)"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -229,6 +247,7 @@
             <TextView
                 android:text="Downloads"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -241,6 +260,7 @@
             <TextView
                 android:text="UserDictionary"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -253,6 +273,7 @@
             <TextView
                 android:text="GMailProvider"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -265,6 +286,7 @@
             <TextView
                 android:text="GservicesProvider"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -277,6 +299,7 @@
             <TextView
                 android:text="SERIAL"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -289,6 +312,7 @@
             <TextView
                 android:text="AdvertisingId"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -301,6 +325,7 @@
             <TextView
                 android:text="getprop net.hostname"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -313,6 +338,7 @@
             <TextView
                 android:text="getprop ro.serialno"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -325,6 +351,7 @@
             <TextView
                 android:text="/proc/stat"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -337,6 +364,7 @@
             <TextView
                 android:text="SIP"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -349,6 +377,7 @@
             <TextView
                 android:text="UsbDevice"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -361,6 +390,7 @@
             <TextView
                 android:text="InetAddress.getByName"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -373,6 +403,7 @@
             <TextView
                 android:text="NetworkInterface.getNetworkInterfaces"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -385,6 +416,7 @@
             <TextView
                 android:text="NetworkInfo.getDetailedState"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -397,6 +429,7 @@
             <TextView
                 android:text="Connectivity.getAllNetworkInfo"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -409,6 +442,7 @@
             <TextView
                 android:text="WifiManager.getScanResults"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -421,6 +455,7 @@
             <TextView
                 android:text="BluetoothAdapter.getAddress"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
@@ -433,10 +468,37 @@
             <TextView
                 android:text="Configuration.MCC"
                 android:textStyle="bold"
+                android:width="150dip"
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/Configuration"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="getAllCellInfo"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/getAllCellInfo"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="getLastKnownLocation"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/getLastKnownLocation"
                 android:layout_marginLeft="6dip" />
         </TableRow>
     </TableLayout>

@@ -26,6 +26,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
@@ -41,6 +43,7 @@ import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.Telephony;
 import android.provider.UserDictionary;
+import android.telephony.CellInfo;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
@@ -64,6 +67,7 @@ public class MainActivity extends Activity {
 		TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 		UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
 		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+		LocationManager locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 		// Account manager methods
 		try {
@@ -121,11 +125,16 @@ public class MainActivity extends Activity {
 		}
 
 		// Calendar provider
-		cursor = cr.query(Calendars.CONTENT_URI, new String[] { Calendars._ID }, null, null, null);
-		((TextView) findViewById(R.id.CalendarProvider2)).setText(cursor == null ? "null" : Integer.toString(cursor
-				.getCount()));
-		if (cursor != null)
-			cursor.close();
+		try {
+			cursor = cr.query(Calendars.CONTENT_URI, new String[] { Calendars._ID }, null, null, null);
+			((TextView) findViewById(R.id.CalendarProvider2)).setText(cursor == null ? "null" : Integer.toString(cursor
+					.getCount()));
+			if (cursor != null)
+				cursor.close();
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.CalendarProvider2)).setText(ex.getClass().getName());
+		}
 
 		// Callog provider
 		try {
@@ -137,7 +146,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.CallLogProvider)).setText(ex.getClass().getName());
 		}
 
 		// Contacts provider
@@ -150,7 +159,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.ContactsProvider2)).setText(ex.getClass().getName());
 		}
 
 		// SMS provider
@@ -162,7 +171,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.SmsProvider)).setText(ex.getClass().getName());
 		}
 
 		// Read SMSes
@@ -174,7 +183,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(Integer.toString(msgs.size()));
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.getAllMessagesFromIcc)).setText(ex.getClass().getName());
 		}
 
 		// Line 1 number
@@ -183,7 +192,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.getLine1Number)).setText(phoneNumber == null ? "null" : phoneNumber);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.getLine1Number)).setText(ex.getClass().getName());
 		}
 
 		// Android ID
@@ -192,7 +201,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.Settings_Secure_ANDROID_ID)).setText(ex.getClass().getName());
 		}
 
 		// default_dns_server
@@ -201,7 +210,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.default_dns_server)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.default_dns_server)).setText(ex.getClass().getName());
 		}
 
 		// wifi_country_code
@@ -210,7 +219,7 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.wifi_country_code)).setText(value == null ? "null" : value);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.wifi_country_code)).setText(ex.getClass().getName());
 		}
 
 		// Input device
@@ -225,7 +234,7 @@ public class MainActivity extends Activity {
 			}
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.InputDevice)).setText(ex.getClass().getName());
 		}
 
 		// Downloads provider
@@ -237,7 +246,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.Downloads)).setText(ex.getClass().getName());
 		}
 
 		// User dictionary
@@ -249,7 +258,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.UserDictionary)).setText(ex.getClass().getName());
 		}
 
 		// GMailProvider
@@ -276,13 +285,13 @@ public class MainActivity extends Activity {
 									((TextView) findViewById(R.id.GMailProvider)).setText("No e-mail account");
 							} catch (Throwable ex) {
 								ex.printStackTrace();
-								Toast.makeText(MainActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
+								((TextView) findViewById(R.id.GMailProvider)).setText(ex.getClass().getName());
 							}
 						}
 					}, null);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.GMailProvider)).setText(ex.getClass().getName());
 		}
 
 		// GservicesProvider
@@ -297,7 +306,7 @@ public class MainActivity extends Activity {
 				cursor.close();
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.GservicesProvider)).setText(ex.getClass().getName());
 		}
 
 		// SERIAL
@@ -320,7 +329,7 @@ public class MainActivity extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							Toast.makeText(MainActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
+							((TextView) findViewById(R.id.AdvertisingId)).setText(ex.getClass().getName());
 						}
 					});
 				}
@@ -360,7 +369,7 @@ public class MainActivity extends Activity {
 
 		} catch (Throwable ex) {
 			ex.printStackTrace();
-			Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+			((TextView) findViewById(R.id.UsbDevice)).setText(ex.getClass().getName());
 		}
 
 		// InetAddress
@@ -450,6 +459,24 @@ public class MainActivity extends Activity {
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.Configuration)).setText(ex.getClass().getName());
+		}
+
+		// Cell info
+		try {
+			List<CellInfo> listCellInfo = telManager.getAllCellInfo();
+			((TextView) findViewById(R.id.getAllCellInfo)).setText(Integer.toString(listCellInfo.size()));
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.getAllCellInfo)).setText(ex.getClass().getName());
+		}
+
+		// Cell info
+		try {
+			Location lastLoc = locMan.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			((TextView) findViewById(R.id.getLastKnownLocation)).setText(lastLoc == null ? "null" : lastLoc.toString());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.getLastKnownLocation)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
