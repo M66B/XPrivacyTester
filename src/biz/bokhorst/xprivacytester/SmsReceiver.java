@@ -15,19 +15,16 @@ public class SmsReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String action = (intent == null ? null : intent.getAction());
-		if (Intents.SMS_DELIVER_ACTION.equals(action)
-				|| Intents.SMS_RECEIVED_ACTION.equals(action)) {
+		if (Intents.SMS_DELIVER_ACTION.equals(action) || Intents.SMS_RECEIVED_ACTION.equals(action)) {
 			Bundle bundle = intent.getExtras();
 			if (bundle == null)
 				Toast.makeText(context, action, Toast.LENGTH_LONG).show();
 			else {
 				Object[] pdusObj = (Object[]) bundle.get("pdus");
 				for (Object currentObj : pdusObj) {
-					SmsMessage message = SmsMessage
-							.createFromPdu((byte[]) currentObj);
+					SmsMessage message = SmsMessage.createFromPdu((byte[]) currentObj);
 					String origin = message.getDisplayOriginatingAddress();
-					Toast.makeText(context, action + ": " + origin,
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, action + ": " + origin, Toast.LENGTH_LONG).show();
 				}
 			}
 		}
