@@ -1,6 +1,8 @@
 package biz.bokhorst.xprivacytester;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -489,6 +491,15 @@ public class MainActivity extends Activity {
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.SensorManager)).setText(ex.getClass().getName());
+		}
+
+		try {
+			Process sh = Runtime.getRuntime().exec("getprop ro.serialno");
+			BufferedReader br = new BufferedReader(new InputStreamReader(sh.getInputStream()));
+			((TextView) findViewById(R.id.shell_ro_serialno)).setText(br.readLine());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.shell_ro_serialno)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
