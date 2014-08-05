@@ -501,6 +501,19 @@
                 android:id="@+id/getLastKnownLocation"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="SensorManager.getSensorList"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/SensorManager"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>

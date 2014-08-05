@@ -24,6 +24,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.location.Location;
@@ -68,6 +70,7 @@ public class MainActivity extends Activity {
 		UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
 		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 		LocationManager locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
+		SensorManager sensitiveMan = (SensorManager) getSystemService(SENSOR_SERVICE);
 
 		// Account manager methods
 		try {
@@ -477,6 +480,15 @@ public class MainActivity extends Activity {
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 			((TextView) findViewById(R.id.getLastKnownLocation)).setText(ex.getClass().getName());
+		}
+
+		// Sensor manager
+		try {
+			List<Sensor> listSensor = sensitiveMan.getSensorList(Sensor.TYPE_ALL);
+			((TextView) findViewById(R.id.SensorManager)).setText(Integer.toString(listSensor.size()));
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.SensorManager)).setText(ex.getClass().getName());
 		}
 
 		// TODO: EMailProvider
