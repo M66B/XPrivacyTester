@@ -446,7 +446,33 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/WifiManager"
+                android:id="@+id/WifiManager_getScanResults"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="WifiManager.getConnectionInfo"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/WifiManager_getConnectionInfo"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="WifiManager.getDhcpInfo"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/WifiManager_getDhcpInfo"
                 android:layout_marginLeft="6dip" />
         </TableRow>
 

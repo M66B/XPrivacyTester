@@ -40,11 +40,13 @@ import android.hardware.usb.UsbManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.DhcpInfo;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.DetailedState;
 import android.net.Uri;
 import android.net.sip.SipManager;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -450,11 +452,26 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		// WifiManager
 		try {
 			List<ScanResult> scans = wifiManager.getScanResults();
-			((TextView) findViewById(R.id.WifiManager))
-					.setText(scans == null ? "null" : Integer.toString(scans.size()));
+			((TextView) findViewById(R.id.WifiManager_getScanResults)).setText(scans == null ? "null" : Integer
+					.toString(scans.size()));
 		} catch (final Throwable ex) {
 			ex.printStackTrace();
-			((TextView) findViewById(R.id.WifiManager)).setText(ex.getClass().getName());
+			((TextView) findViewById(R.id.WifiManager_getScanResults)).setText(ex.getClass().getName());
+		}
+		try {
+			WifiInfo winfo = wifiManager.getConnectionInfo();
+			((TextView) findViewById(R.id.WifiManager_getConnectionInfo)).setText(winfo == null ? "null" : winfo
+					.toString());
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.WifiManager_getConnectionInfo)).setText(ex.getClass().getName());
+		}
+		try {
+			DhcpInfo dhcp = wifiManager.getDhcpInfo();
+			((TextView) findViewById(R.id.WifiManager_getDhcpInfo)).setText(dhcp == null ? "null" : dhcp.toString());
+		} catch (final Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.WifiManager_getDhcpInfo)).setText(ex.getClass().getName());
 		}
 
 		// BluetoothAdapter
