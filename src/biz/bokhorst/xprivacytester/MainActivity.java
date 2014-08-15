@@ -28,6 +28,7 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OnAccountsUpdateListener;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -543,10 +544,9 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		android.util.Log.w("XPrivacyTester",
-				"ActivityRecognitionApi=" + ActivityRecognition.ActivityRecognitionApi.getClass());
 		android.util.Log.w("XPrivacyTester", "AppIndexApi=" + AppIndex.AppIndexApi.getClass());
 
+		// FusedLocationApi
 		try {
 			Location loc = LocationServices.FusedLocationApi.getLastLocation(gClient);
 			((TextView) findViewById(R.id.GMS5_getLastLocation)).setText(loc == null ? "null" : loc.toString());
@@ -569,6 +569,13 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 				}
 			}
 		});
+
+		// ActivityRecognitionApi
+		Intent activityIntent = new Intent(this, MainActivity.class);
+		PendingIntent pi = PendingIntent.getService(MainActivity.this, 0, activityIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+		ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(gClient, 0, pi);
+		ActivityRecognition.ActivityRecognitionApi.removeActivityUpdates(gClient, pi);
 	}
 
 	@Override
