@@ -544,8 +544,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		android.util.Log.w("XPrivacyTester", "AppIndexApi=" + AppIndex.AppIndexApi.getClass());
-
 		// FusedLocationApi
 		try {
 			Location loc = LocationServices.FusedLocationApi.getLastLocation(gClient);
@@ -576,6 +574,10 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 				PendingIntent.FLAG_UPDATE_CURRENT);
 		ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(gClient, 0, pi);
 		ActivityRecognition.ActivityRecognitionApi.removeActivityUpdates(gClient, pi);
+
+		// AppIndexApi
+		AppIndex.AppIndexApi.view(gClient, this, new Intent(), "XPrivacy", null, null);
+		AppIndex.AppIndexApi.viewEnd(gClient, this, new Intent());
 	}
 
 	@Override
