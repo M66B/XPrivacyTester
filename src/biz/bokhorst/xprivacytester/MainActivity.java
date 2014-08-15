@@ -17,6 +17,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -79,7 +82,6 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 		Cursor cursor;
 		final ContentResolver cr = getContentResolver();
-
 		final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
 		ConnectivityManager conMan = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		TelephonyManager telManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -576,7 +578,17 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 		ActivityRecognition.ActivityRecognitionApi.removeActivityUpdates(gClient, pi);
 
 		// AppIndexApi
-		AppIndex.AppIndexApi.view(gClient, this, new Intent(), "XPrivacy", null, null);
+		PendingResult<Status> pr = AppIndex.AppIndexApi.view(gClient, this, new Intent(), "XPrivacy", null, null);
+		pr.cancel();
+		android.util.Log.w("XPrivacyTester", "cancelled=" + pr.isCanceled());
+		pr.setResultCallback(new ResultCallback<Status>() {
+			@Override
+			public void onResult(Status status) {
+				android.util.Log.w("XPrivacyTester", "callback status=" + status.getStatusCode());
+			}
+		});
+		Status status = pr.await();
+		android.util.Log.w("XPrivacyTester", "status=" + status.getStatusCode());
 		AppIndex.AppIndexApi.viewEnd(gClient, this, new Intent());
 	}
 
