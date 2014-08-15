@@ -553,6 +553,32 @@
                 android:id="@+id/shell_ro_serialno"
                 android:layout_marginLeft="6dip" />
         </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="GMS5.getLastLocation"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/GMS5_getLastLocation"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="GMS5.requestLocationUpdates"
+                android:textStyle="bold"
+                android:width="150dip"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/GMS5_requestLocationUpdates"
+                android:layout_marginLeft="6dip" />
+        </TableRow>
     </TableLayout>
 
 </ScrollView>

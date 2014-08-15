@@ -18,6 +18,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.ActivityRecognition;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import android.accounts.Account;
@@ -541,25 +543,40 @@ public class MainActivity extends Activity implements ConnectionCallbacks, OnCon
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		android.util.Log
-				.w("XPrivacyTester", "FusedLocationProviderApi=" + LocationServices.FusedLocationApi.getClass());
 		android.util.Log.w("XPrivacyTester",
 				"ActivityRecognitionApi=" + ActivityRecognition.ActivityRecognitionApi.getClass());
 		android.util.Log.w("XPrivacyTester", "AppIndexApi=" + AppIndex.AppIndexApi.getClass());
-		android.util.Log.w("XPrivacyTester",
-				"getLastLocation=" + LocationServices.FusedLocationApi.getLastLocation(gClient));
+
+		try {
+			Location loc = LocationServices.FusedLocationApi.getLastLocation(gClient);
+			((TextView) findViewById(R.id.GMS5_getLastLocation)).setText(loc == null ? "null" : loc.toString());
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			((TextView) findViewById(R.id.GMS5_getLastLocation)).setText(ex.getClass().getName());
+		}
+
+		LocationRequest locRec = new LocationRequest();
+		locRec.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		LocationServices.FusedLocationApi.requestLocationUpdates(gClient, locRec, new LocationListener() {
+			@Override
+			public void onLocationChanged(Location loc) {
+				try {
+					((TextView) findViewById(R.id.GMS5_requestLocationUpdates)).setText(loc == null ? "null" : loc
+							.toString());
+				} catch (Throwable ex) {
+					ex.printStackTrace();
+					((TextView) findViewById(R.id.GMS5_requestLocationUpdates)).setText(ex.getClass().getName());
+				}
+			}
+		});
 	}
 
 	@Override
 	public void onConnectionSuspended(int arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
